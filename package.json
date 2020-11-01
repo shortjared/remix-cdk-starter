@@ -4,24 +4,61 @@
   "bin": {
     "remix-cdk-starter": "bin/remix-cdk-starter.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shortjared/remix-cdk-starter.git"
+  },
+  "aws": {
+    "pipeline": {
+      "account": "241707393264",
+      "region": "us-east-1"
+    }
+  },
   "scripts": {
     "build": "tsc",
-    "watch": "tsc -w",
+    "cdk": "cdk",
+    "deploy": "npm:remix:build && cdk deploy RemixApp -O .stack-outputs.json",
+    "deploy:pipeline": "cdk deploy RemixAppPipeline",
+    "dev": "concurrently npm:remix:run npm:remix:tsc npm:remix:nodemon",
+    "remix:build": "cd src && cross-env NODE_ENV=production remix build && tsc -b",
+    "remix:nodemon": "cd src && nodemon --ignore app server.js",
+    "remix:run": "cd src && remix run",
+    "remix:tsc": "cd src && tsc -b -w",
     "test": "jest",
-    "cdk": "cdk"
-  },
-  "devDependencies": {
-    "@aws-cdk/assert": "1.71.0",
-    "@types/jest": "^26.0.10",
-    "@types/node": "10.17.27",
-    "jest": "^26.4.2",
-    "ts-jest": "^26.2.0",
-    "aws-cdk": "1.71.0",
-    "ts-node": "^8.1.0",
-    "typescript": "~3.9.7"
+    "update:cdk": "ncu -u /.*aws-cdk.*/",
+    "watch": "tsc -w"
   },
   "dependencies": {
     "@aws-cdk/core": "1.71.0",
-    "source-map-support": "^0.5.16"
+    "@remix-run/cli": "0.6.2",
+    "@remix-run/express": "0.6.2",
+    "@remix-run/loader": "0.6.2",
+    "@remix-run/react": "0.6.2",
+    "express": "4.17.1",
+    "morgan": "1.10.0",
+    "react": "16.14.0",
+    "react-dom": "16.14.0",
+    "react-router": "6.0.0-beta.0",
+    "react-router-dom": "6.0.0-beta.0",
+    "source-map-support": "0.5.16"
+  },
+  "devDependencies": {
+    "@aws-cdk/assert": "1.71.0",
+    "@aws-cdk/pipelines": "^1.71.0",
+    "@types/jest": "26.0.10",
+    "@types/node": "10.17.27",
+    "@types/react": "16.9.53",
+    "@types/react-dom": "16.9.8",
+    "aws-cdk": "1.71.0",
+    "concurrently": "5.3.0",
+    "cross-env": "7.0.2",
+    "jest": "26.4.2",
+    "nodemon": "2.0.5",
+    "ts-jest": "26.2.0",
+    "ts-node": "8.1.0",
+    "typescript": "4.0.3"
+  },
+  "engines": {
+    "node": "12"
   }
 }

@@ -1,6 +1,6 @@
 import * as cdk from '@aws-cdk/core';
 
-export class RemixCdkStarterStack extends cdk.Stack {
+export class RemixAppStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
